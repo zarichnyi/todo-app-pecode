@@ -50,8 +50,19 @@ const columnsSlice = createSlice({
         column.taskIds = column.taskIds.filter(id => !markedIds.includes(id));
       }
     },
-    addTaskToColumn: (state, action: PayloadAction<{ columnId: string; taskId: string }>) => {
-      state.entities[action.payload.columnId].taskIds.push(action.payload.taskId);
+    addTaskToColumn: (state, action: PayloadAction<{ columnId: string; taskId: string; index?: number }>) => {
+      const { columnId, taskId, index } = action.payload;
+      const column = state.entities[columnId];
+      
+      if (!column) return;
+      
+      // If index is provided, insert at that position
+      if (typeof index === 'number' && index >= 0 && index <= column.taskIds.length) {
+        column.taskIds.splice(index, 0, taskId);
+      } else {
+        // Otherwise, add to the end
+        column.taskIds.push(taskId);
+      }
     },
     removeColumn: (state, action: PayloadAction<string>) => {
       const columnId = action.payload;

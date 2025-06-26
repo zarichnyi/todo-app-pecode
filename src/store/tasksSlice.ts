@@ -53,7 +53,13 @@ const tasksSlice = createSlice({
           task.marked = action.payload.value
         }
       });
-    }
+    },
+    updateTaskColumn: (state, action: PayloadAction<{taskId: string, columnId: string}>) => {
+      const task = state[action.payload.taskId];
+      if (task) {
+        task.column = action.payload.columnId;
+      }
+    },
 },
 });
 
@@ -65,6 +71,7 @@ export const {
     toggleTaskMark,
     removeMarkedTasks,
     markAllAsCompleted,
-    selectAllinColumn
+    selectAllinColumn,
+    updateTaskColumn
   } = tasksSlice.actions;
 export default tasksSlice.reducer;

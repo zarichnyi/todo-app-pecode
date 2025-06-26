@@ -46,6 +46,13 @@
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.column.columnDropTarget {
+  border-color: #4f46e5;
+  background-color: #f8fafc;
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
 }
 
 .title {
@@ -92,4 +99,23 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.emptyColumn {
+  text-align: center;
+  padding: 24px;
+  color: #6b7280;
+  font-style: italic;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  margin-top: 12px;
+  background-color: #f9fafb;
+  transition: all 0.2s;
+}
+
+.column.columnDropTarget .emptyColumn {
+  color: #4f46e5;
+  border-color: #4f46e5;
+  background-color: #eef2ff;
+  font-weight: 500;
 }

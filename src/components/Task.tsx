@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAppDispatch } from '@hooks';
-import { removeTask, toggleTaskCompleted, toggleTaskMark, editTask } from '../store/tasksSlice';
-import { removeTaskFromColumn } from '../store/columnsSlice';
+import { removeTask, toggleTaskCompleted, toggleTaskMark, editTask, updateTaskColumn } from '../store/tasksSlice';
+import { removeTaskFromColumn, addTaskToColumn } from '../store/columnsSlice';
 import type { Task } from '../types/types';
 import styles from '../styles/Task.module.css';
 import { Trash2, GripVertical } from 'lucide-react';
@@ -13,9 +13,10 @@ type TaskProps = {
   columnId: string;
   index: number;
   onReorder: (dragIndex: number, hoverIndex: number) => void;
+  onMoveToColumn?: (taskId: string, sourceColumnId: string, targetColumnId: string, targetIndex: number) => void;
 };
 
-const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder }) => {
+const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder, onMoveToColumn }) => {
   const dispatch = useAppDispatch();
   const [taskText, setTaskText] = useState(task.text);
   const [editActivated, setEditActivated] = useState(false);
@@ -34,7 +35,12 @@ const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder }) => {
     // Set up draggable
     const cleanupDraggable = draggable({
       element: dragHandle,
-      getInitialData: () => ({ taskId: task.id, index, columnId }),
+      getInitialData: () => ({ 
+        taskId: task.id, 
+        index, 
+        columnId,
+        type: 'task' 
+      }),
       onDragStart: () => setIsDragging(true),
       onDrop: () => setIsDragging(false),
     });
@@ -42,22 +48,43 @@ const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder }) => {
     // Set up drop target
     const cleanupDropTarget = dropTargetForElements({
       element,
-      getData: () => ({ taskId: task.id, index, columnId }),
-      onDragEnter: () => setIsDropTarget(true),
+      getData: () => ({ 
+        taskId: task.id, 
+        index, 
+        columnId,
+        type: 'task'
+      }),
+      onDragEnter: ({ source }) => {
+        // Only show drop target if it's a different task
+        if (source.data.taskId !== task.id) {
+          setIsDropTarget(true);
+        }
+      },
       onDragLeave: () => setIsDropTarget(false),
       onDrop: ({ source }) => {
         setIsDropTarget(false);
         const sourceData = source.data;
-        if (
-          sourceData.columnId === columnId &&
-          sourceData.index !== index &&
-          typeof sourceData.index === 'number'
-        ) {
+        
+        if (sourceData.type !== 'task' || sourceData.taskId === task.id) {
+          return;
+        }
+
+        // Same column reordering
+        if (sourceData.columnId === columnId && typeof sourceData.index === 'number') {
           onReorder(sourceData.index as number, index);
+        }
+        // Cross-column movement
+        else if (sourceData.columnId !== columnId && onMoveToColumn) {
+          onMoveToColumn(
+            sourceData.taskId as string,
+            sourceData.columnId as string,
+            columnId,
+            index
+          );
         }
       },
       canDrop: ({ source }) => {
-        return source.data.columnId === columnId && source.data.taskId !== task.id;
+        return source.data.type === 'task' && source.data.taskId !== task.id;
       },
     });
 
@@ -65,7 +92,7 @@ const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder }) => {
       cleanupDraggable();
       cleanupDropTarget();
     };
-  }, [task.id, index, columnId, onReorder]);
+  }, [task.id, index, columnId, onReorder, onMoveToColumn]);
 
   const handleDelete = () => {
     dispatch(removeTask(task.id));
@@ -87,7 +114,7 @@ const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder }) => {
           <div 
             ref={dragHandleRef}
             className={styles.dragHandle}
-            title="Drag to reorder"
+            title="Drag to reorder or move to another column"
           >
             <GripVertical size={16} />
           </div>
