@@ -1,5 +1,6 @@
-import { useAppSelector } from './store/hooks';
+import { useAppSelector, useAppDispatch } from './store/hooks';
 import { useState } from 'react';
+import { reorderColumns } from './store/columnsSlice';
 import Column from './components/Column';
 import RemoveMarkedTask from './components/RemoveMarkedTasks';
 import AddColumn from './components/AddColumn';
@@ -9,6 +10,14 @@ import styles from './styles/App.module.css';
 const App = () => {
   const columnOrder = useAppSelector(state => state.columns.order);
   const [searchText, setSearchText] = useState('');
+  const dispatch = useAppDispatch();
+
+  const handleReorderColumns = (dragIndex: number, hoverIndex: number) => {
+    dispatch(reorderColumns({
+      fromIndex: dragIndex,
+      toIndex: hoverIndex
+    }));
+  };
 
   return (
     <div className={styles.appContainer}>
@@ -26,8 +35,13 @@ const App = () => {
         <RemoveMarkedTask />
       </div>
       <div className={styles.columns}>
-        {columnOrder.map(id => (
-          <Column key={id} columnId={id} />
+        {columnOrder.map((id, index) => (
+          <Column 
+            key={id} 
+            columnId={id} 
+            index={index}
+            onReorderColumns={handleReorderColumns}
+          />
         ))}
       </div>
     </div>

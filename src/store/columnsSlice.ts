@@ -80,6 +80,21 @@ const columnsSlice = createSlice({
       taskIds.splice(toIndex, 0, movedTaskId);
       
       column.taskIds = taskIds;
+    },
+    reorderColumns: (state, action: PayloadAction<{ fromIndex: number; toIndex: number }>) => {
+      const { fromIndex, toIndex } = action.payload;
+      
+      if (fromIndex === toIndex || 
+          fromIndex < 0 || fromIndex >= state.order.length ||
+          toIndex < 0 || toIndex >= state.order.length) {
+        return;
+      }
+      
+      const newOrder = [...state.order];
+      const [movedColumnId] = newOrder.splice(fromIndex, 1);
+      newOrder.splice(toIndex, 0, movedColumnId);
+      
+      state.order = newOrder;
     }
   },
 });
@@ -90,6 +105,7 @@ export const {
   addTaskToColumn,
   removeMarkedTasksFromColumns,
   removeColumn,
-  reorderTasksInColumn
+  reorderTasksInColumn,
+  reorderColumns
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
