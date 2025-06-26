@@ -1,0 +1,78 @@
+.columnContainer {
+  margin-right: 16px;
+}
+
+.columnTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.label {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.select {
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #ffffff;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  height: 700px;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  background: #ffffff;
+  border: 2px solid #1f2937;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 10px 12px;
+}
+
+.addTaskButton {
+  background: #4f46e5;
+  color: #ffffff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.addTaskButton:hover {
+  background: #4338ca;
+}
+
+.columnActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}

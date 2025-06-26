@@ -1,0 +1,33 @@
+
+.resultsList {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 120px;
+  overflow: auto;
+}
+
+.resultItem {
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e7eb;
+  color: #1f2937;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resultItem:last-child {
+  border-bottom: none;
+}
+
+.completedIcon {
+  color: #16a34a;
+}
+
+.noResults {
+  color: #6b7280;
+  font-size: 14px;
+  padding: 8px 0;
+}

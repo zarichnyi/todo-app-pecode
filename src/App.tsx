@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useAppSelector } from './store/hooks';
+import { useState } from 'react';
+import Column from './components/Column';
+import RemoveMarkedTask from './components/RemoveMarkedTasks';
+import AddColumn from './components/AddColumn';
+import SearchResults from './components/SmartSearch';
+import styles from './styles/App.module.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const columnOrder = useAppSelector(state => state.columns.order);
+  const [searchText, setSearchText] = useState('');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={styles.appContainer}>
+      <div className={styles.header}>
+        <input
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Search tasks..."
+          className={styles.searchInput}
+        />
+        <SearchResults query={searchText} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className={styles.actions}>
+        <AddColumn />
+        <RemoveMarkedTask />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <div className={styles.columns}>
+        {columnOrder.map(id => (
+          <Column key={id} columnId={id} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-export default App
+export default App;

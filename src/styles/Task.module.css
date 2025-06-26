@@ -1,0 +1,129 @@
+.taskContainer {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+.taskContainer:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.taskHeader {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  /* justify-content: space-between; */
+}
+
+.taskHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #4f46e5;
+  border-radius: 4px;
+}
+
+.label {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.taskText {
+  font-size: 16px;
+  color: #1f2937;
+  font-weight: 500;
+  word-break: break-word; /* Breaks long words to wrap */
+  overflow-wrap: break-word; /* Ensures wrapping for long text */
+  max-width: 100%; /* Keeps text within container */
+  text-overflow: ellipsis;
+}
+
+.taskTextCompleted {
+  text-decoration: line-through;
+}
+
+.editSection {
+  margin-top: 12px;
+}
+
+.editButton {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  color: #4338ca;
+}
+
+.editForm {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.editInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.submitButton {
+  background: #4f46e5;
+  color: #ffffff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background: #4338ca;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.deleteButton {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+}
+
+.deleteButton:hover {
+  background: #dc2626;
+}
