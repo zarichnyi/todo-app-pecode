@@ -5,18 +5,51 @@
   padding: 16px;
   margin-bottom: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s, opacity 0.2s;
+  position: relative;
 }
 
 .taskContainer:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.taskContainer.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+  z-index: 1000;
+}
+
+.taskContainer.dropTarget {
+  border-color: #4f46e5;
+  background-color: #f8fafc;
+  transform: translateY(-2px);
+}
+
+.dragHandle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  color: #9ca3af;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s, background-color 0.2s;
+  margin-right: 8px;
+}
+
+.dragHandle:hover {
+  color: #4f46e5;
+  background-color: #f3f4f6;
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
 .taskHeader {
   display: flex;
   align-items: center;
   column-gap: 10px;
-  /* justify-content: space-between; */
 }
 
 .taskHeaderWrapper {
@@ -46,9 +79,9 @@
   font-size: 16px;
   color: #1f2937;
   font-weight: 500;
-  word-break: break-word; /* Breaks long words to wrap */
-  overflow-wrap: break-word; /* Ensures wrapping for long text */
-  max-width: 100%; /* Keeps text within container */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
   text-overflow: ellipsis;
 }
 

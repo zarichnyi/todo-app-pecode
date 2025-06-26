@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { useAppSelector } from '../store/hooks';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { reorderTasksInColumn } from '../store/columnsSlice';
 import Task from './Task';
 import AddTaskModal from './AddTaskModal';
 import RemoveColumnWithTasks from './RemoveColumnWithTasks';
@@ -18,6 +19,7 @@ const NONE = "none";
 const Column: React.FC<ColumnProps> = ({ columnId }) => {
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [filterBy, setFilterBy] = useState<string>(NONE);
+  const dispatch = useAppDispatch();
   const column = useAppSelector(state => state.columns.entities[columnId]);
   const tasks = useAppSelector(state => state.tasks);
 
@@ -33,6 +35,17 @@ const Column: React.FC<ColumnProps> = ({ columnId }) => {
     }
     return column.taskIds.map(taskId => tasks[taskId]);
   }, [filterBy, column.taskIds, tasks]);
+
+  const handleReorder = (dragIndex: number, hoverIndex: number) => {
+    // Only reorder if we're showing all tasks (no filter applied)
+    if (filterBy !== NONE) return;
+    
+    dispatch(reorderTasksInColumn({
+      columnId,
+      fromIndex: dragIndex,
+      toIndex: hoverIndex
+    }));
+  };
 
   return (
     <div className={styles.columnContainer}>
@@ -64,9 +77,22 @@ const Column: React.FC<ColumnProps> = ({ columnId }) => {
             Add task
           </button>
         </div>
-        {taskList.map(task => (
-          <Task key={task.id} task={task} columnId={columnId} />
-        ))}
+        {filterBy !== NONE && (
+          <div className={styles.filterNotice}>
+            Drag-and-drop is disabled when filtering tasks
+          </div>
+        )}
+        <div className={styles.taskList}>
+          {taskList.map((task, index) => (
+            <Task 
+              key={task.id} 
+              task={task} 
+              columnId={columnId}
+              index={index}
+              onReorder={handleReorder}
+            />
+          ))}
+        </div>
       </div>
       <AddTaskModal
         columnId={columnId}
