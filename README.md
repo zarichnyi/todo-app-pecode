@@ -17,8 +17,8 @@ A TODO APP with DRAG n DROP built on React and TypeScript.
 Clone the repository:
 
 ```sh
-git clone https://github.com/YOUR_GITHUB_USERNAME/REPO_NAME.git
-cd REPO_NAME
+git clone https://github.com/zarichnyi/todo-app-recman.git
+cd todo-app-recman
 ```
 
 Install dependencies:
