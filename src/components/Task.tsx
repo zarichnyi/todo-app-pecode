@@ -74,14 +74,14 @@ const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder, onMoveToC
           onReorder(sourceData.index as number, index);
         }
         // Cross-column movement
-        else if (sourceData.columnId !== columnId && onMoveToColumn) {
-          onMoveToColumn(
-            sourceData.taskId as string,
-            sourceData.columnId as string,
-            columnId,
-            index
-          );
-        }
+        // else if (sourceData.columnId !== columnId && onMoveToColumn) {
+        //   onMoveToColumn(
+        //     sourceData.taskId as string,
+        //     sourceData.columnId as string,
+        //     columnId,
+        //     index
+        //   );
+        // }
       },
       canDrop: ({ source }) => {
         return source.data.type === 'task' && source.data.taskId !== task.id;
@@ -92,7 +92,7 @@ const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder, onMoveToC
       cleanupDraggable();
       cleanupDropTarget();
     };
-  }, [task.id, index, columnId, onReorder, onMoveToColumn]);
+  }, [ columnId, /* onReorder, */ onMoveToColumn]);
 
   const handleDelete = () => {
     dispatch(removeTask(task.id));

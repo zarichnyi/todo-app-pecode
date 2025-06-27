@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
-import { reorderTasksInColumn, removeTaskFromColumn, addTaskToColumn } from '../store/columnsSlice';
+import { reorderTasksInColumn, moveTaskToColumn } from '../store/columnsSlice';
 import { updateTaskColumn } from '../store/tasksSlice';
 import Task from './Task';
 import AddTaskModal from './AddTaskModal';
@@ -156,13 +156,7 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
   };
 
   const handleMoveToColumn = (taskId: string, sourceColumnId: string, targetColumnId: string, targetIndex: number) => {
-    // Remove from source column
-    dispatch(removeTaskFromColumn({ taskId, columnId: sourceColumnId }));
-    
-    // Add to target column at specific position
-    dispatch(addTaskToColumn({ columnId: targetColumnId, taskId, index: targetIndex }));
-    
-    // Update task's column reference
+    dispatch(moveTaskToColumn({ taskId, sourceColumnId, targetColumnId, targetIndex }));
     dispatch(updateTaskColumn({ taskId, columnId: targetColumnId }));
   };
 
@@ -211,11 +205,11 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
             Add task
           </button>
         </div>
-        {filterBy !== NONE && (
+        {/* {filterBy !== NONE && (
           <div className={styles.filterNotice}>
             Drag-and-drop is disabled when filtering tasks
           </div>
-        )}
+        )} */}
         <div className={styles.taskList}>
           {taskList.map((task, taskIndex) => (
             <Task 

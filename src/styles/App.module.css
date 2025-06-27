@@ -1,26 +1,46 @@
+body, .appBackground {
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  background: #f4f6fa;
+  margin: 0;
+  padding: 0;
+}
+
 .root {
   background: #f9fafb;
   width: 100%;
 }
 
 .appContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px;
-  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
+  width: 100vw;
+}
+
+.header, .actions, .columns {
+  width: 100%;
+  max-width: 972px;
+  margin: 0 auto;
 }
 
 .header {
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 16px;
 }
 
 .searchInput {
   width: 100%;
-  max-width: 500px;
-  padding: 10px;
-  border: 1px solid #d1d5db;
+  max-width: 400px;
+  padding: 12px;
   border-radius: 6px;
+  border: 1px solid #ddd;
   font-size: 16px;
   margin-bottom: 12px;
 }
@@ -33,18 +53,18 @@
 
 .actions {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   gap: 16px;
   margin-bottom: 24px;
-  flex-wrap: wrap;
 }
 
 .columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
 }
 
 /* Responsive design */

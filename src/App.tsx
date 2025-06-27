@@ -21,7 +21,7 @@ const App = () => {
   };
 
   return (
-    <div className={styles.appContainer}>
+    <div className={`${styles.appBackground} ${styles.appContainer}`}>
       <div className={styles.header}>
         <input
           value={searchText}
