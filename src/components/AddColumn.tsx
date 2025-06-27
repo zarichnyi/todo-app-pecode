@@ -11,6 +11,7 @@ const AddColumn = () => {
 
   const handleAddColumn = () => {
     dispatch(addColumn({ id, title: text }));
+    setText('');
   }
 
   return (
