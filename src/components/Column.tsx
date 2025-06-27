@@ -2,7 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { reorderTasksInColumn, moveTaskToColumn } from '../store/columnsSlice';
 import { updateTaskColumn } from '../store/tasksSlice';
-import Task from './Task';
+import TaskComponent from './Task';
 import AddTaskModal from './AddTaskModal';
 import RemoveColumnWithTasks from './RemoveColumnWithTasks';
 import MarkAsAllTasksCompleted from './MarkAsAllTasksCompleted';
@@ -207,12 +207,12 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
         </div>
         {/* {filterBy !== NONE && (
           <div className={styles.filterNotice}>
-            Drag-and-drop is disabled when filtering tasks
+            Drag and drop is disabled when filtering tasks
           </div>
         )} */}
         <div className={styles.taskList}>
           {taskList.map((task, taskIndex) => (
-            <Task 
+            <TaskComponent 
               key={task.id} 
               task={task} 
               columnId={columnId}

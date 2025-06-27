@@ -17,7 +17,7 @@ const AddTaskModal: React.FC<Props> = ({ columnId, isOpen, setIsModalActive }) =
 
   const handleAdd = () => {
     const id = uuid();
-    dispatch(addTask({ id, text, completed: false, column: columnId }));
+    dispatch(addTask({ id, text, completed: false, column: columnId, marked: false }));
     dispatch(addTaskToColumn({ columnId, taskId: id }));
     setIsModalActive(false);
     setText('');

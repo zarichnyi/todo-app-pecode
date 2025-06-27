@@ -10,4 +10,5 @@ export default defineConfig({
       '@hooks': path.resolve(__dirname, 'src/store/hooks'),
     },
   },
+  base: '/todo-app-recman/'
 })

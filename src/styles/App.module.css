@@ -21,7 +21,7 @@ body, .appBackground {
   width: 100vw;
 }
 
-.header, .actions, .columns {
+.header, .actions {
   width: 100%;
   max-width: 972px;
   margin: 0 auto;
@@ -60,11 +60,10 @@ body, .appBackground {
 }
 
 .columns {
-  display: flex;
-  flex-direction: row;
-  gap: 24px;
-  justify-content: center;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  gap: 12px;
+  /* width: 100%; */
 }
 
 /* Responsive design */
@@ -83,7 +82,8 @@ body, .appBackground {
   }
 
   .columns {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(250px, 1fr));
     gap: 12px;
   }
 }

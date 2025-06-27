@@ -16,7 +16,7 @@ type TaskProps = {
   onMoveToColumn?: (taskId: string, sourceColumnId: string, targetColumnId: string, targetIndex: number) => void;
 };
 
-const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder, onMoveToColumn }) => {
+const TaskComponent: React.FC<TaskProps> = ({ task, columnId, index, onReorder, onMoveToColumn }) => {
   const dispatch = useAppDispatch();
   const [taskText, setTaskText] = useState(task.text);
   const [editActivated, setEditActivated] = useState(false);
@@ -178,4 +178,4 @@ const Task: React.FC<TaskProps> = ({ task, columnId, index, onReorder, onMoveToC
   );
 };
 
-export default Task;
+export default TaskComponent;
