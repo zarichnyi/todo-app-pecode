@@ -1,6 +1,6 @@
 # Todo App
 
-A TODO APP with DRAG n DROP built on React and TypeScript.
+A TODO APP with DRAG n DROP built on React + Vite, TypeScript, Redux
 
 ## Getting Started
 
