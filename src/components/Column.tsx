@@ -34,6 +34,7 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
   const tasks = useAppSelector(state => state.tasks);
   const columnRef = useRef<HTMLDivElement>(null);
   const columnDragHandleRef = useRef<HTMLDivElement>(null);
+  const columnContainerRef = useRef<HTMLDivElement>(null);
 
   const taskList = useMemo(() => {
     if (filterBy === COMPLETED) {
@@ -52,8 +53,9 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
   useEffect(() => {
     const element = columnRef.current;
     const dragHandle = columnDragHandleRef.current;
+    const containerElement = columnContainerRef.current;
     
-    if (!element || !dragHandle) return;
+    if (!element || !dragHandle || !containerElement) return;
 
     // Set up column draggable
     const cleanupColumnDraggable = draggable({
@@ -67,9 +69,9 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
       onDrop: () => setIsDraggingColumn(false),
     });
 
-    // Set up column drop target for reordering
+    // Set up column drop target for reordering on the container
     const cleanupColumnDropTarget = dropTargetForElements({
-      element,
+      element: containerElement,
       getData: () => ({ 
         columnId, 
         index,
@@ -95,7 +97,7 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
       },
     });
 
-    // Set up task drop target (existing functionality)
+    // Set up task drop target (existing functionality) on the inner column element
     const cleanupTaskDropTarget = dropTargetForElements({
       element,
       getData: () => ({ 
@@ -165,7 +167,10 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
   };
 
   return (
-    <div className={styles.columnContainer}>
+    <div 
+      ref={columnContainerRef}
+      className={`${styles.columnContainer} ${isColumnReorderTarget ? styles.columnReorderTarget : ''}`}
+    >
       <div className={styles.filterSection}>
         <label htmlFor="taskFilter" className={styles.label}>Filter by:</label>
         <select
@@ -184,8 +189,7 @@ const Column: React.FC<ColumnProps> = ({ columnId, index, onReorderColumns }) =>
         ref={columnRef}
         className={`${styles.column} 
           ${isColumnDropTarget ? styles.columnDropTarget : ''} 
-          ${isDraggingColumn ? styles.draggingColumn : ''} 
-          ${isColumnReorderTarget ? styles.columnReorderTarget : ''}`}
+          ${isDraggingColumn ? styles.draggingColumn : ''}`}
       >
         <div className={styles.columnTitleWrapper}>
           <div 

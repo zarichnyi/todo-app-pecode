@@ -13,6 +13,7 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   const handleReorderColumns = (dragIndex: number, hoverIndex: number) => {
+    console.log(dragIndex, hoverIndex)
     dispatch(reorderColumns({
       fromIndex: dragIndex,
       toIndex: hoverIndex

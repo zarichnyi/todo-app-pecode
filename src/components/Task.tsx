@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useAppDispatch } from '@hooks';
-import { removeTask, toggleTaskCompleted, toggleTaskMark, editTask, updateTaskColumn } from '../store/tasksSlice';
-import { removeTaskFromColumn, addTaskToColumn } from '../store/columnsSlice';
+import { useAppDispatch } from '../store/hooks';
+import { removeTask, toggleTaskCompleted, toggleTaskMark, editTask } from '../store/tasksSlice';
+import { removeTaskFromColumn } from '../store/columnsSlice';
 import type { Task } from '../types/types';
 import styles from '../styles/Task.module.css';
 import { Trash2, GripVertical } from 'lucide-react';
