@@ -1,4 +1,4 @@
-# Todo App RECMAN
+# Todo App
 
 A TODO APP with DRAG n DROP built on React and TypeScript.
 
