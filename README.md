@@ -1,7 +1,7 @@
 # Todo App
 
 A TODO APP with DRAG n DROP built on React + Vite, TypeScript, Redux
-![App Demo](https://zarichnyi.github.io/todo-app-recman/)
+[App Demo](https://zarichnyi.github.io/todo-app-recman/)
 
 ## Getting Started
 
